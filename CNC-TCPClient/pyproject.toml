@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cnc-tcpclient"
+version = "1.0.0"
+description = "CNC示教器TCP客户端模拟程序，支持9个LED和63个按键"
+requires-python = ">=3.8"
+dependencies = [
+    "PyQt5>=5.15.0",
+]
+
+[project.scripts]
+cnc-tcpclient = "src.main:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]

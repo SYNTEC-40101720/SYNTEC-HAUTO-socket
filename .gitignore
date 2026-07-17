@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.trae/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Build artifacts
+*.spec
+
+# Local overrides
+*.local.ini

@@ -1,0 +1,34 @@
+# Python 构建产物
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+
+# 分发/打包
+build/
+dist/
+*.egg-info/
+*.egg
+
+# PyInstaller
+*.spec
+
+# 虚拟环境
+.venv/
+venv/
+env/
+
+# IDE
+.trae/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 日志
+*.log

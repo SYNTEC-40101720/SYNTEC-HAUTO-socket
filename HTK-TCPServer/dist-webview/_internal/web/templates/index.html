@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HTK TCP Server</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<main class="app-shell">
+    <header class="topbar">
+        <div class="brand-lockup">
+            <div class="brand-mark" aria-hidden="true">HTK</div>
+            <div>
+                <p class="eyebrow">SYNTEC / TEST CONSOLE</p>
+                <h1>示教器 TCP 服务端</h1>
+            </div>
+        </div>
+        <div class="connection-overview">
+            <div class="status-pill" id="server-status-pill">
+                <span class="status-dot"></span>
+                <span id="server-status-text">已停止</span>
+            </div>
+            <span class="client-text" id="client-text">客户端未连接</span>
+        </div>
+    </header>
+
+    <section class="control-grid" aria-label="服务控制">
+        <article class="panel server-panel">
+            <div class="panel-heading">
+                <div>
+                    <p class="section-kicker">TCP LISTENER</p>
+                    <h2>服务</h2>
+                </div>
+                <span class="port-readout" id="listen-port">未监听</span>
+            </div>
+            <div class="server-form">
+                <label class="field-label" for="tcp-port">端口</label>
+                <input id="tcp-port" class="number-input" type="number" min="1" max="65535" value="802">
+                <button id="server-toggle" class="button button-primary" type="button">
+                    <span class="button-icon" aria-hidden="true">▶</span>
+                    <span>启动服务</span>
+                </button>
+            </div>
+            <p class="panel-note" id="server-message">等待操作</p>
+        </article>
+
+        <article class="panel io-panel">
+            <div class="panel-heading">
+                <div>
+                    <p class="section-kicker">IO MODE</p>
+                    <h2>模式</h2>
+                </div>
+                <span class="mode-value" id="io-mode-value">手动</span>
+            </div>
+            <div class="segmented-control" role="group" aria-label="IO 模式">
+                <button class="mode-button" data-mode="auto" type="button">自动</button>
+                <button class="mode-button is-active" data-mode="manual" type="button">手动</button>
+                <button class="mode-button" data-mode="remote" type="button">远程</button>
+            </div>
+        </article>
+
+        <article class="panel mpg-panel">
+            <div class="panel-heading">
+                <div>
+                    <p class="section-kicker">MPG ENCODER</p>
+                    <h2>手轮</h2>
+                </div>
+                <span class="mpg-total" id="mpg-total">0</span>
+            </div>
+            <div class="mpg-actions">
+                <button class="direction-button reverse" data-direction="-1" type="button" title="反向">← 反向</button>
+                <button class="direction-button forward" data-direction="1" type="button" title="正向">正向 →</button>
+            </div>
+        </article>
+    </section>
+
+    <section class="panel telemetry-panel">
+        <div class="panel-heading compact-heading">
+            <div>
+                <p class="section-kicker">TEACHBOX FEEDBACK</p>
+                <h2>指示状态</h2>
+            </div>
+            <span class="feedback-label">LED / BUZZER</span>
+        </div>
+        <div class="led-bank" id="led-bank">
+            {% for index in range(9) %}
+            <div class="led-item">
+                <span class="led-lamp" data-led-index="{{ index }}"></span>
+                <span>L{{ index + 1 }}</span>
+            </div>
+            {% endfor %}
+            <div class="led-item buzzer-item">
+                <span class="led-lamp buzzer-lamp" data-buzzer="true"></span>
+                <span>BUZ</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="panel key-panel">
+        <div class="panel-heading key-heading">
+            <div>
+                <p class="section-kicker">TEACHBOX KEYPAD</p>
+                <h2>按键模拟</h2>
+            </div>
+            <span class="key-count">63 KEYS</span>
+        </div>
+        <div class="key-grid" id="key-grid">
+            {% for key in keys %}
+            <button
+                class="key-button{% if key.shift %} is-modifier{% endif %}{% if key.lines|length > 1 %} has-multiline{% endif %}"
+                data-key-index="{{ key.index }}"
+                style="--key-color: {{ key.color }}"
+                type="button"
+                aria-label="{{ key.id }} {{ key.name|replace('\n', ' ') }}"
+            >
+                {% for line in key.lines %}<span>{{ line }}</span>{% endfor %}
+            </button>
+            {% endfor %}
+        </div>
+    </section>
+
+    <div class="notice" id="notice" role="status" aria-live="polite"></div>
+</main>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

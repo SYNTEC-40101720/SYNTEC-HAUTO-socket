@@ -96,6 +96,9 @@
         document.querySelectorAll("[data-led-index]").forEach(function (lamp) {
             lamp.classList.toggle("is-on", Boolean(state.leds[Number(lamp.dataset.ledIndex)]));
         });
+        document.querySelectorAll("[data-key-led-index]").forEach(function (lamp) {
+            lamp.classList.toggle("is-on", Boolean(state.leds[Number(lamp.dataset.keyLedIndex)]));
+        });
         const buzzer = document.querySelector("[data-buzzer]");
         buzzer.classList.toggle("is-on", Boolean(state.buzzer));
 

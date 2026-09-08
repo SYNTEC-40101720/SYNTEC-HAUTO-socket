@@ -114,6 +114,9 @@
                 type="button"
                 aria-label="{{ key.id }} {{ key.name|replace('\n', ' ') }}"
             >
+                {% if key.led_index is not none %}
+                <span class="led-lamp key-led" data-key-led-index="{{ key.led_index }}" aria-hidden="true"></span>
+                {% endif %}
                 {% for line in key.lines %}<span>{{ line }}</span>{% endfor %}
             </button>
             {% endfor %}

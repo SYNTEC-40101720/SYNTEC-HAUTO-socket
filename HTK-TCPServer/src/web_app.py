@@ -21,6 +21,17 @@ from src.tcp_server import TeachboxTcpServer
 
 
 SHIFT_KEYS = {14, 20}
+KEY_LED_MAP = {
+    "K11": 0,
+    "K12": 1,
+    "K17": 2,
+    "K18": 3,
+    "K20": 4,
+    "K25": 5,
+    "K58": 6,
+    "K59": 7,
+    "K60": 8,
+}
 DEFAULT_PORT = 802
 DEFAULT_KEY_COLOR = "#FFFFFF"
 VALID_COLOR = re.compile(r"^#[0-9a-fA-F]{6}$")
@@ -42,6 +53,7 @@ def load_key_config() -> list[dict[str, object]]:
             "lines": [f"K{index + 1}"],
             "color": DEFAULT_KEY_COLOR,
             "shift": index in SHIFT_KEYS,
+            "led_index": KEY_LED_MAP.get(f"K{index + 1}"),
         }
         for index in range(63)
     ]
